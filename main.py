@@ -17,7 +17,7 @@ class OmegatProps(BaseModel):
     segmentation: bool
 
 class Segment(BaseModel):
-    segment_number: conint(gt=0)
+    segment_number: int
     file_name: str
     source_text: str 
     target_text: str
