@@ -6,7 +6,7 @@ from datetime import date, datetime
 from fastapi import FastAPI, HTTPException
 from mongita import MongitaClientDisk
 from typing import Dict, List
-from pydantic import BaseModel
+from pydantic import BaseModel, conint
 from pyexpat import model
 
 
@@ -17,7 +17,7 @@ class OmegatProps(BaseModel):
     segmentation: bool
 
 class Segment(BaseModel):
-    segment_number: int
+    segment_number: conint(gt=0)
     file_name: str
     source_text: str 
     target_text: str
@@ -35,8 +35,9 @@ class Segments(BaseModel):
 
 class Report(BaseModel):
     report_id: str
-    props: Dict[str, str] = {}
-    segments: List = []
+    props: OmegatProps
+    # props: Dict[str, str] = {}
+    segments: List[Segment]
 
 
 app = FastAPI()
